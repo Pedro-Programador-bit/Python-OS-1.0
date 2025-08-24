@@ -8,3 +8,4 @@ Para fazer um .poa, siga esses passos:
 4- publique no github.
 
 pra rodar, precisasse de ter instalado o python, não é .exe.
+ps: quando entrar no Python-OS e criar as pastas apps e docs, mova o Palavra 1.0 pra ele.
