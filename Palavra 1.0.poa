@@ -1,0 +1,97 @@
+import os
+from time import sleep
+
+Linhas_Salvas = []
+Tela = "Inicio"
+Linhas_Q_F = None
+# Mude o valor dentro das aspas menos o C:/Users/{os.getLogin()}/Desktop/ (pra entrar no desktop) para o dirétorio docs aonde o Python-OS está localizado.
+BASE = os.path.dirname("__file__")   # pega a pasta onde o script está
+DOCS = os.path.join(BASE, "docs")
+Nome_A = None
+
+print ("__________")
+print ("|   ____  |")
+print ("|   |   | |")
+print ("|   |___| |")
+print ("|   ______/")
+print ("|   |")
+print ("|   |")
+print ("|___|")
+print ("    Palavra 1.0")
+
+while Tela == "Inicio":
+    print ()
+    print ("1: Criar um arquivo;")
+    print ("2: Ver um arquivo;")
+    print ("3: Sair.")
+    print ()
+    Escolha = input ("O que você vai fazer? ")
+    if Escolha == "1":
+        print ("Lembrando que você pode colocar .txt ou não.")
+        Nome_A = input ("Nome? ")
+        if not Nome_A.endswith (".txt"):
+            Nome_A += ".txt"
+        else:
+            pass
+        Tela = "Editor"
+    elif Escolha == "2":
+        if not os.path.exists(DOCS):
+            print ()
+            print ("A pasta ""docs"" ainda não existe.")
+        else:
+            Arquivos = os.listdir(DOCS)
+            if not Arquivos:
+                print("Nenhum arquivo encontrado na pasta ""docs"".")
+            else:
+                print("Arquivos disponíveis:")
+                for file in Arquivos:
+                    print (file)
+                Nome_A = input ("Digite o nome: ")
+                if Nome_A in Arquivos:
+                    Caminho_A = os.path.join (DOCS, Nome_A)
+                    try:
+                        with open(Caminho_A, "r", encoding="utf-8") as f:
+                            print ("O que está dentro do arquivo:")
+                            print (f.read())
+                    except Exception as e:
+                        print (f"Ocorreu um erro ao mostrar o arquivo: {e}.")
+    elif Escolha == "3":
+        print ("Saindo...")
+        sleep(2)
+        exit()
+    else:
+        print ("Comando invalido.")
+
+while Tela == "Editor":
+    print ()
+    print ("Escreva Comandos pra acessar a parte de comandos.")
+    print ("Comandos:")
+    print ("S: Salvar;")
+    print ("Q: Sair do editor (não pergunta se quer salvar);")
+    print ("L: Vê as linhas que faltam;")
+    print ()
+    for L in range(1000):
+        Linha = input (f"{L + 1}: ")
+        if L > 499:
+            print ("Limite de linhas atingido!")
+            print ()
+            Linhas_Salvas.pop (500)
+        if Linha == "Comando":
+            Comando = input ("C>>> ")
+            if Comando == "Q":
+                Tela = "Inicio"
+            elif Comando == "S":
+                os.makedirs(DOCS, exist_ok=True)
+                Caminho = os.path.join(DOCS, Nome_A)
+                with open(Caminho, "w", encoding="utf-8") as f:
+                    try:
+                        f.write("\n".join(Linhas_Salvas))
+                        print ("Salvo com sucesso na pasta DOCS.")
+                    except Exception as e:
+                        print (f"Ocorreu um erro ao salvar o arquivo: {e}.")
+            elif Comando == "L":
+                print ()
+                print (Linhas_Q_F)
+                print ()
+        else:
+            Linhas_Salvas.append(Linha)
