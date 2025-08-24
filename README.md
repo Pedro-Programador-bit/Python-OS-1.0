@@ -6,3 +6,5 @@ Para fazer um .poa, siga esses passos:
 2- faça uma cópia, só por segurança
 3- renoomeie pra .poa
 4- publique no github.
+
+pra rodar, precisasse de ter instalado o python, não é .exe.
